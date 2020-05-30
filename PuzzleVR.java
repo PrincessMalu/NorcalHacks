@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package puzzlevr;
 
 /**
@@ -24,15 +20,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.swing.JButton;
 
 public class PuzzleVR {
 
     private JFrame frame;
     private JLabel[] labels;
-    private final int rows = 3; //You should decide the values for rows and cols variables
-    private final int cols = 3;
+    private final int rows = 7; 
+    private final int cols = 6;
     private final int chunks = rows * cols;
-    private final int SPACING = 10;//spacing between split images
+    private JButton puzzlePieces[][] = new JButton[rows][cols];
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -56,24 +55,37 @@ public class PuzzleVR {
     private void split() {
 
         BufferedImage[] imgs = getImages();
-
+        int counter= 0;
         //setting the contentpane layout (size, etc) for grid layout 
-        frame.getContentPane().setLayout(new GridLayout(rows, cols, SPACING, SPACING));
+        frame.getContentPane().setLayout(new GridLayout(rows, cols));
 
-        labels = new JLabel[imgs.length];
-
-        //create JLabels with split image portions; adding to contentPane
-        for (int i = 0; i < imgs.length; i++) {
-            labels[i] = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().createImage(imgs[i].getSource())));
-            frame.getContentPane().add(labels[i]);
+        
+         for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                ImageIcon pic = new ImageIcon(Toolkit.getDefaultToolkit().createImage(imgs[counter].getSource()));
+                puzzlePieces[i][j] = new JButton(pic);
+                puzzlePieces[i][j].setActionCommand("(" + i + j + ")");
+                //puzzlePieces[i][j].addActionListener(this);
+                frame.getContentPane().add(puzzlePieces[i][j]);
+                counter++;
+            }
         }
     }
 
     private BufferedImage[] getImages() {
        
         BufferedImage originalImage = null;
+        URL url1 = null;
+       try
+        {
+            url1 = new URL("https://kids.nationalgeographic.com/explore/monuments/eiffel-tower/_jcr_content/content/textimage_6.img.jpg/1581608715365.jpg");
+        } 
+        catch (MalformedURLException e1) 
+        {
+            e1.printStackTrace();
+        }
        try {
-        originalImage = ImageIO.read(new File("I:/eiffel.jpeg"));
+        originalImage = ImageIO.read(url1);
 } catch (IOException e) {
 }
         int chunkWidth = originalImage.getWidth() / cols; // determines the chunk width and height
