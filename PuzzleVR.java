@@ -18,6 +18,18 @@ import java.util.*;
 import javax.swing.Icon;
 
 
+/**
+ * A puzzle game that leads to a VR image of the place shown in the completed
+ * image.
+ *
+ * 
+ * @author Malavika, Arjun, Angela, Yalda
+ * @version May 31, 2020
+ * @author Period: TODO
+ * @author Assignment: PuzzleVR
+ *
+ * @author Sources: TODO
+ */
 public class PuzzleVR implements ActionListener
 {
 
@@ -40,6 +52,12 @@ public class PuzzleVR implements ActionListener
     private int turn = 0;
 
 
+    /**
+     * main method for the game & vr
+     * 
+     * @param args
+     *            string array
+     */
     public static void main( String[] args )
     {
         SwingUtilities.invokeLater( new Runnable()
@@ -54,6 +72,9 @@ public class PuzzleVR implements ActionListener
     }
 
 
+    /**
+     * Creates the frame for the game
+     */
     private void createGUI()
     {
         frame = new JFrame( "Puzzle" );
@@ -66,6 +87,9 @@ public class PuzzleVR implements ActionListener
     }
 
 
+    /**
+     * Makes the grid layout with all the pieces filling up one spot.
+     */
     private void split()
     {
 
@@ -92,6 +116,11 @@ public class PuzzleVR implements ActionListener
     }
 
 
+    /**
+     * Splits up the image into many pieces as if it were a puzzle.
+     * 
+     * @return and array with all the chucks of the image.
+     */
     private BufferedImage[] getImages()
     {
 
@@ -107,12 +136,12 @@ public class PuzzleVR implements ActionListener
         }
 
         int chunkWidth = originalImage.getWidth() / cols; // determines the
-                                                          // chunk width and
-                                                          // height
+        // chunk width and
+        // height
         int chunkHeight = originalImage.getHeight() / rows;
         int count = 0;
         BufferedImage imgs[] = new BufferedImage[chunks]; // Image array to hold
-                                                          // image chunks
+        // image chunks
         for ( int x = 0; x < rows; x++ )
         {
             for ( int y = 0; y < cols; y++ )
@@ -145,6 +174,9 @@ public class PuzzleVR implements ActionListener
     private ArrayList<JButton> puzzlePieceShuffle = new ArrayList<JButton>();
 
 
+    /**
+     * Shuffles the original puzzle pieces at the start of the game.
+     */
     public void shuffle()
     {
         int index = 0;
@@ -177,6 +209,16 @@ public class PuzzleVR implements ActionListener
     }
 
 
+    /**
+     * TODO Write your method description here.
+     * 
+     * @param x1
+     * @param y1
+     * @param t1
+     * @param x2
+     * @param y2
+     * @param t2
+     */
     public void changeImage( int x1, int y1, int t1, int x2, int y2, int t2 )
     {
 
@@ -216,6 +258,11 @@ public class PuzzleVR implements ActionListener
     }
 
 
+    /**
+     * 
+     * @param tag
+     * @return
+     */
     public static int[] getXY( String tag )
     {
         int xy[] = new int[3];
@@ -230,17 +277,22 @@ public class PuzzleVR implements ActionListener
 
     /*
      * private boolean checkSolve(){ int one; int two;
-     * 
+     *
      * for (int i=0; i<rows; i++) { for (int j=0; j<cols-1; j++) { one =
      * Integer.parseInt(puzzlePieces2[i][j].getActionCommand().substring(4));
      * two =
      * Integer.parseInt(puzzlePieces2[i][j+1].getActionCommand().substring(4));
-     * 
+     *
      * System.out.println(one+" "+two); // if(one+1 != two);
-     * 
+     *
      * } } return false;
-     * 
+     *
      * }
+     */
+    /**
+     * Checks to see if the puzzle has been solved correctly
+     * 
+     * @return true - if the puzzle is completed, false otherwise
      */
     private boolean checkSolve()
     {
@@ -267,6 +319,12 @@ public class PuzzleVR implements ActionListener
     }
 
 
+    /**
+     * Out of the 5 picture offered chooses one of them for the user to complete
+     * the puzzle with.
+     * 
+     * @return the url of the picture chosen to be split up.
+     */
     public URL choosePic()
     {
         ArrayList<URL> urls = new ArrayList<URL>();
@@ -309,10 +367,20 @@ public class PuzzleVR implements ActionListener
         {
             e1.printStackTrace();
         }
+        try
+        {
+            urls.add( new URL(
+                "https://media.architecturaldigest.com/photos/56328adbc0f017f231baf0ac/2:1/w_5226,h_2613,c_limit/sagrada-familia.jpg\n" ) );
+
+        }
+        catch ( MalformedURLException e1 )
+        {
+            e1.printStackTrace();
+        }
         Collections.shuffle( urls );
-        System.out.println(urls.get( 0 ));
-        
-        return urls.get(0);
+        System.out.println( urls.get( 0 ) );
+
+        return urls.get( 0 );
     }
 
 }
