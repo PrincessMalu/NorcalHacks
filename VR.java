@@ -10,14 +10,19 @@ import java.util.*;
 import javax.swing.Icon;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import java.awt.Container;
+import java.net.URL;
+import java.awt.Desktop;
 
-public class PuzzleVR extends JFrame implements ActionListener
+public class VR extends JFrame //implements ActionListener
 { 
-    
-    private JButton pressToPlay;
+    URL VRlink;
+    String link;
+    private JButton press;
     private JFrame start;
     
-    public PuzzleVR() {
+    public VR(/*URL u*/) {
+       // VRlink=u;
+        link = VRlink.toString();
        setSize(626, 417);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Lobby");
@@ -26,30 +31,26 @@ public class PuzzleVR extends JFrame implements ActionListener
         Container c = getContentPane();
         c.setBackground(Color.PINK);
         
-        pressToPlay = new JButton("Travel from home! Click to start the puzzle.");
-        pressToPlay.setBounds(170, 150, 300, 50);
-        pressToPlay.addActionListener(this);
-        c.add(pressToPlay);
+        press = new JButton("Good job :) Click to see your puzzle image in VR.");
+        press.setBounds(170, 150, 300, 50);
+        //press.addActionListener(this);
+        c.add(press);
         
         ImageIcon bg = new ImageIcon(getClass().getResource("travel.png"));
         JLabel background = new JLabel("", bg, JLabel.CENTER);
         background.setBounds(0, 0, 626, 417);
         c.add(background);
         
-    }     
-public static void main(String[] args) {
-        PuzzleVR game = new PuzzleVR();
-        game.setLocationRelativeTo(null);
-        game.setVisible(true);
     }
+}
 
-public void actionPerformed(ActionEvent e) {
-     if (e.getSource() == pressToPlay) {
-
+/*public void actionPerformed(ActionEvent e) {
+     if (e.getSource() == press) {
+            try {
+    Desktop.getDesktop().browse(new URL(link).toURI());
+} catch {
             
-            puzzleBoard board = new puzzleBoard();
-            this.dispose();
-
         }
 }
 }
+*/
